@@ -99,13 +99,13 @@ public:
 	{
 		ins_tree = new Drzewo<int>();
 		int temp[4];
-		ins_tree.insert(3, ins_tree.root(), 0);
-		Drzewo<int>::iterator it = ins_tree.root();
-		ins_tree.insert(2, it, 0);
-		it = ins_tree.insert(1, it, 1);
-		ins_tree.insert(0, it, 0);
+		ins_tree->insert(3, ins_tree->root(), 0);
+		Drzewo<int>::iterator it = ins_tree->root();
+		ins_tree->insert(2, it, 0);
+		it = ins_tree->insert(1, it, 1);
+		ins_tree->insert(0, it, 0);
 		int i = 0;
-		for(int val : ins_tree)
+		for(int val : *ins_tree)
 		{
 			CPPUNIT_ASSERT_EQUAL(true, val < 4);
 			temp[val] = val;
