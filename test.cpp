@@ -62,6 +62,16 @@ public:
 		CPPUNIT_ASSERT_EQUAL(true, drz2->size() == 1);
 		CPPUNIT_ASSERT_EQUAL(false, drz2->empty());
 	}
+
+	void copy_constr_test()
+	{
+		Drzewo<int> t1(-10);
+		Drzewo<int> t2(t1);
+		CPPUNIT_ASSERT_EQUAL(false, t1.empty());
+		CPPUNIT_ASSERT_EQUAL(false, t2.empty());
+		CPPUNIT_ASSERT_EQUAL(true, t2.size() == 1);
+		CPPUNIT_ASSERT_EQUAL(true, t2.size() == 1);
+	}
 };
 
 class ConstructorTests : public CppUnit::TestFixture
