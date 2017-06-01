@@ -41,9 +41,6 @@ public:
 template<typename T>
 class Drzewo
 {
-	/**
-	 *
-	 */
 	struct Node
 	{
 		T value;
@@ -273,7 +270,7 @@ public:
 			return;
 		}
 		std::vector<Node*>& parent_children = iter.ptr->parent->children;
-		int pos = 0;//iter.ptr - parent_children[0];
+		int pos = 0;
 		for(Node* p : parent_children)
 		{
 			if(p == iter.ptr) break;
