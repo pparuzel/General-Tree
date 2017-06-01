@@ -299,26 +299,4 @@ public:
 	{
 		return _size;
 	}
-
-	void print()
-	{
-		std::cout << "TREE: ";
-		if (_root)
-			print(_root);
-		else
-			std::cout << "empty";
-		std::cout << "\n";
-	}
-
-private:
-	void print(Node* current)
-	{
-		std::cout << current->value << " ";
-		for (Node* n : current->children)
-		{
-			print(n);
-		}
-	}
-
-public:
 };

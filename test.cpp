@@ -99,6 +99,10 @@ public:
 	{
 		ins_tree = new Drzewo<int>();
 		int temp[4];
+		for(int i=0; i<4; i++)
+		{
+			temp[i] = -1;
+		}
 		ins_tree->insert(3, ins_tree->root(), 0);
 		Drzewo<int>::iterator it = ins_tree->root();
 		ins_tree->insert(2, it, 0);
@@ -118,7 +122,7 @@ public:
 	}
 };
 
-class ConstructorTests : public CppUnit::TestFixture
+class InsertionTests : public CppUnit::TestFixture
 {
 	Drzewo<int>* t1;
 	Drzewo<double>* t2;
@@ -126,8 +130,9 @@ class ConstructorTests : public CppUnit::TestFixture
 public:
 	static CppUnit::Test *suite()
 	{
-		CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite("ConstructorTests");
-		suiteOfTests->addTest( new CppUnit::TestCaller<ConstructorTests>("constr_test", &ConstructorTests::constr_test ) );
+		CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite("InsertionTests");
+		suiteOfTests->addTest( new CppUnit::TestCaller<InsertionTests>("insert_tests", &InsertionTests::insert_tests ) );
+		// suiteOfTests->addTest( new CppUnit::TestCaller<InsertionTests>("xxx", &InsertionTests::xxx ) );
 		return suiteOfTests;
 	}
 
@@ -145,9 +150,13 @@ public:
 		delete t3;
 	}
 
-	void constr_test()
+	void insert_tests()
 	{
-	
+		t1->insert(0, t1->end(), 0);
+		t1->insert(2, t1->root(), 0);
+		t1->insert(1, t1->root(), 0);
+		CPPUNIT_ASSERT_EQUAL( true, *(t1->getChild(t1->root(), 0)) == 1 );
+		CPPUNIT_ASSERT_EQUAL( true, *(t1->getChild(t1->root(), 1)) == 2 );
 	}
 };
 
@@ -155,6 +164,6 @@ int main()
 {
 	CppUnit::TextUi::TestRunner runner;
 	runner.addTest(MustHaveTests::suite());
-	//runner.addTest(ConstructorTests::suite());
+	runner.addTest(InsertionTests::suite());
 	runner.run();
 }
