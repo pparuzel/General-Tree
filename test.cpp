@@ -9,6 +9,7 @@
 
 class MustHaveTests : public CppUnit::TestFixture
 {
+	Drzewo<int>* ins_tree;
 public:
 	static CppUnit::Test *suite()
 	{
@@ -17,10 +18,21 @@ public:
 		suiteOfTests->addTest( new CppUnit::TestCaller<MustHaveTests>("constr_destr__test", &MustHaveTests::constr_destr_test) );
 		suiteOfTests->addTest( new CppUnit::TestCaller<MustHaveTests>("constr_size_test_empty", &MustHaveTests::constr_size_test_empty) );
 		suiteOfTests->addTest( new CppUnit::TestCaller<MustHaveTests>("copy_constr_test", &MustHaveTests::copy_constr_test) );
-		//suiteOfTests->addTest( new CppUnit::TestCaller<MustHaveTests>("xxx", &MustHaveTests::xxx) );
+		suiteOfTests->addTest( new CppUnit::TestCaller<MustHaveTests>("copy_constr_iter_test", &MustHaveTests::copy_constr_iter_test) );
+		suiteOfTests->addTest( new CppUnit::TestCaller<MustHaveTests>("iter_insert_test", &MustHaveTests::iter_insert_test) );
+		// suiteOfTests->addTest( new CppUnit::TestCaller<MustHaveTests>("xxx", &MustHaveTests::xxx) );
 		return suiteOfTests;
 	}
 	
+	void setUp() 
+	{
+		ins_tree = nullptr;
+	}
+
+	void tearDown()
+	{
+	}	
+
 	void constr_destr_test_empty()
 	{
 		Drzewo<int>* temp1;
@@ -74,6 +86,36 @@ public:
 		CPPUNIT_ASSERT_EQUAL(true, t2.size() == 1);
 		CPPUNIT_ASSERT_EQUAL(true, t2.size() == 1);
 	}
+
+	void copy_constr_iter_test()
+	{
+		Drzewo<char> t1('x');
+		Drzewo<double> t2(-2.8);
+		CPPUNIT_ASSERT_EQUAL(true, *t.root() == 'x');
+		CPPUNIT_ASSERT_EQUAL(true, *t2.root() == -2.8);
+	}
+
+	void iter_insert_test()
+	{
+		ins_tree = new Drzewo<int>();
+		int temp[4];
+		t.insert(3, t.root(), 0);
+		Drzewo<int>::iterator it = t.root();
+		t.insert(2, it, 0);
+		it = t.insert(1, it, 1);
+		t.insert(0, it, 0);
+		int i = 0;
+		for(int val : ins_tree)
+		{
+			CPPUNIT_ASSERT_EQUAL(true, val < 4);
+			temp[val] = val;
+		}
+		for(int i=0; i<4; i++)
+		{
+			CPPUNIT_ASSERT_EQUAL(true, temp[i] == i);
+		}
+		delete ins_tree;
+	}
 };
 
 class ConstructorTests : public CppUnit::TestFixture
@@ -101,7 +143,7 @@ public:
 		delete t1;
 		delete t2;
 		delete t3;
-	}		 
+	}
 
 	void constr_test()
 	{
