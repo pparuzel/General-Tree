@@ -91,7 +91,7 @@ public:
 	{
 		Drzewo<char> t1('x');
 		Drzewo<double> t2(-2.8);
-		CPPUNIT_ASSERT_EQUAL(true, *t.root() == 'x');
+		CPPUNIT_ASSERT_EQUAL(true, *t1.root() == 'x');
 		CPPUNIT_ASSERT_EQUAL(true, *t2.root() == -2.8);
 	}
 
@@ -99,11 +99,11 @@ public:
 	{
 		ins_tree = new Drzewo<int>();
 		int temp[4];
-		t.insert(3, t.root(), 0);
-		Drzewo<int>::iterator it = t.root();
-		t.insert(2, it, 0);
-		it = t.insert(1, it, 1);
-		t.insert(0, it, 0);
+		ins_tree.insert(3, ins_tree.root(), 0);
+		Drzewo<int>::iterator it = ins_tree.root();
+		ins_tree.insert(2, it, 0);
+		it = ins_tree.insert(1, it, 1);
+		ins_tree.insert(0, it, 0);
 		int i = 0;
 		for(int val : ins_tree)
 		{
