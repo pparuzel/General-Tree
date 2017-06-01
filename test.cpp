@@ -16,6 +16,8 @@ public:
 		suiteOfTests->addTest( new CppUnit::TestCaller<MustHaveTests>("constr_destr_test_empty", &MustHaveTests::constr_destr_test_empty) );
 		suiteOfTests->addTest( new CppUnit::TestCaller<MustHaveTests>("constr_destr__test", &MustHaveTests::constr_destr_test) );
 		suiteOfTests->addTest( new CppUnit::TestCaller<MustHaveTests>("constr_size_test_empty", &MustHaveTests::constr_size_test_empty) );
+		suiteOfTests->addTest( new CppUnit::TestCaller<MustHaveTests>("copy_constr_test", &MustHaveTests::copy_constr_test) );
+		//suiteOfTests->addTest( new CppUnit::TestCaller<MustHaveTests>("xxx", &MustHaveTests::xxx) );
 		return suiteOfTests;
 	}
 	
