@@ -31,5 +31,6 @@
 *.out
 *.app
 
-# Debugging
+# Other
 main.cpp
+.DS_Store
