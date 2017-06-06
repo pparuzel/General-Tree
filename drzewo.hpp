@@ -98,9 +98,11 @@ class Drzewo
 			return &ptr->value;
 		}
 
-		Iterator& operator++(int)
+		Iterator operator++(int)
 		{
-			return this->operator++();
+			Iterator temp = *this;
+			this->operator++();
+			return temp;
 		}
 
 		bool operator==(Iterator it) const
