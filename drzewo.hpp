@@ -36,7 +36,10 @@ public:
 
  */
 /**
- *
+ * Pojemnik o strukturze drzewiastej. Użyta struktura jest
+ * drzewem ogólnym z jednym możliwym korzeniem.
+ * Przechowywany jest wskaźnik na korzeń, a więc
+ * jest możliwość braku korzenia.
  */
 template<typename T>
 class Drzewo
@@ -142,12 +145,24 @@ public:
 	Node* _root;
 	std::size_t _size;
 
+	/**
+	 * Konstruktor domyślny tworzący drzewo
+	 * bez korzenia o rozmiarze 0.
+	 */
 	Drzewo() : _root(nullptr), _size(0)
 	{}
 
+	/**
+	 * Konstruktor z wartością typu T określonego szablonem.
+	 * Tworzy drzewo o rozmiarze 1 i korzeniu o wartości
+	 * podanej jako parametr.
+	 */
 	Drzewo(const T& value) : _root(new Node(value)), _size(1)
 	{}
 
+	/**
+	 * Konstruktor kopiujący drzewo.
+	 */
 	Drzewo(const Drzewo& tree) : _root(nullptr), _size(tree._size)
 	{
 		if(tree._root == nullptr) return;
@@ -158,12 +173,23 @@ public:
 		}
 	}
 
+	/**
+	 * Destruktor drzewa.
+	 * Najpierw czyszczone jest drzewo.
+	 * W przypadku wycieku wyświetlany jest błąd.
+	 * "POSSIBLE MEMORY LEAK"
+	 */
 	~Drzewo()
 	{
 		clear();
-		if(_size != 0) std::cerr << "TREE ALLOCATION ERROR";
 	}
 
+
+	/**
+	 * Operator przypisania.
+	 * W przypadku wycieku wyświetlany jest błąd.
+	 * "POSSIBLE MEMORY LEAK"
+	 */
 	Drzewo& operator=(const Drzewo& tree)
 	{
 		this->clear();
@@ -178,8 +204,9 @@ public:
 
 	/**
 	 * Operacja wstawiajaca element do drzewa. Jesli podany
-	 * wskaznik na rodzica jest nullptr, a indeks jest rowny 0,
-	 * element zostanie utworzony w korzeniu (jesli to mozliwe)
+	 * wskaznik na rodzica jest pusty, a indeks jest rowny 0,
+	 * element zostanie utworzony w korzeniu (jesli to mozliwe).
+	 * Ponowna próba wstawienia na miejsce korzenia daje zachowanie niezdefiniowane. 
 	 *
 	 * @param  value  element dodawany do drzewa
 	 * @param  parent iterator wskazujacy na rodzica
@@ -206,18 +233,17 @@ public:
 	}
 
 	/**
-	 * [root description]
-	 * @param  _root [description]
-	 * @return	   [description]
+	 * Iterator na korzeń drzewa.
+	 * @return	   Iterator na korzeń drzewa
 	 */
-	Iterator root()
+	Iterator root() const
 	{
 		return Iterator(_root);
 	}
 
 	/**
-	 * [begin description]
-	 * @return [description]
+	 * Iterator na początek drzewa.
+	 * @return Iterator na "left-most child"
 	 */
 	Iterator begin() const
 	{
@@ -234,8 +260,9 @@ public:
 	}
 
 	/**
-	 * [end description]
-	 * @return [description]
+	 * Iterator na koniec drzewa.
+	 * Wskazuje za ostatnim elementem.
+	 * @return Iterator za "root"
 	 */
 	Iterator end() const
 	{
@@ -243,26 +270,33 @@ public:
 	}
 
 	/**
-	 * [getChild description]
-	 * @param  parent [description]
-	 * @param  index  [description]
-	 * @return		[description]
+	 * Metoda zwracająca iterator na dziecko
+	 * na podanej pozycji pod podanym rodzicem.
+	 * @param  parent 	rodzic wskazywanego node'a
+	 * @param  index  	pozycja danego dziecka (numerowane od 0)
+	 * @return			iterator na dziecko
 	 */
-	Iterator getChild(Iterator parent, std::size_t index)
+	Iterator getChild(Iterator parent, std::size_t index) const
 	{
 		return Iterator(parent.ptr->children[index]);
 	}
 
 	/**
-	 * [getNumberOfChildren description]
-	 * @param  parent [description]
-	 * @return		[description]
+	 * Metoda zwracająca liczbę dzieci danego wezła
+	 * @param  parent 	iterator na rodzica
+	 * @return			liczba całkowita ilości dzieci
 	 */
-	int getNumberOfChildren(Iterator parent)
+	int getNumberOfChildren(Iterator parent) const
 	{
 		return (int) parent.ptr->children.size();
 	}
 
+
+	/**
+	 * Operacja usuwająca węzeł wskazany przez iterator.
+	 * Usuwane są również wszystkie dzieci i poddzieci.
+	 * @param  iter iterator na usuwany węzeł
+	 */
 	void erase(Iterator iter)
 	{
 		if (iter.ptr == _root && _root != nullptr)
@@ -282,19 +316,33 @@ public:
 		delete_node(iter.ptr);
 	}
 
+	/**
+	 * Metoda czyszcząca drzewo.
+	 * W przypadku wycieku wyświetlany jest błąd.
+	 * "POSSIBLE MEMORY LEAK"
+	 */
 	void clear()
 	{
 		if (_root != nullptr)
 			delete_node(_root);
 		_root = nullptr;
+		if(_size != 0) std::cerr << "POSSIBLE MEMORY LEAK";
 	}
 
-	bool empty()
+	/**
+	 * Metoda zwracająca czy drzewo jest puste.
+	 * @return boolean
+	 */
+	bool empty() const
 	{
 		return _root == nullptr;
 	}
 
-	std::size_t size()
+	/**
+	 * Metoda zwracająca rozmiar drzewa.
+	 * @return std::size_t
+	 */
+	std::size_t size() const
 	{
 		return _size;
 	}
