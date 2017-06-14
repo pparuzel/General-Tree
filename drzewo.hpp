@@ -26,7 +26,7 @@ public:
 	Iterator begin();
 	Iterator end();
 	Iterator getChild(Iterator , std::size_t );
-	friend int getNumberOfChildren(Iterator );
+	int getNumberOfChildren(Iterator );
 	void erase(Iterator );
 	void clear(Iterator );
 	bool empty();
@@ -54,6 +54,13 @@ class Drzewo
 		{}
 	};
 
+	/**
+	 * Klasa Iterator, pełniąca funkcję wskaźnika na elementy drzewa.
+	 * Iterator jest jednokierunkowy.
+	 * W drzewie iterator na początkowy węzeł jest wywoływany metodą
+	 * begin(), a iterator wskazujący za ostatni element metodą end().
+	 * Przejście po drzewie jest Post-Order.
+	 */
 	class Iterator
 	{
 		friend class Drzewo;
@@ -142,6 +149,7 @@ public:
 	typedef T value_type;
 	typedef Iterator iterator;
 	typedef std::size_t size_type;
+
 	Node* _root;
 	std::size_t _size;
 
@@ -181,7 +189,7 @@ public:
 	 */
 	~Drzewo()
 	{
-		clear();
+		this->clear();
 	}
 
 
@@ -208,10 +216,10 @@ public:
 	 * element zostanie utworzony w korzeniu (jesli to mozliwe).
 	 * Ponowna próba wstawienia na miejsce korzenia daje zachowanie niezdefiniowane. 
 	 *
-	 * @param  value  element dodawany do drzewa
-	 * @param  parent iterator wskazujacy na rodzica
-	 * @param  index  indeks w tablicy dzieci gdzie ma byc dodany element
-	 * @return		iterator wskazujacy na nowo utworzony element
+	 * @param  value  	element dodawany do drzewa
+	 * @param  parent 	iterator wskazujacy na rodzica
+	 * @param  index  	indeks w tablicy dzieci gdzie ma byc dodany element
+	 * @return			iterator wskazujacy na nowo utworzony element
 	 */
 	Iterator insert(const T& value, Iterator it_parent, std::size_t index)
 	{
@@ -234,7 +242,7 @@ public:
 
 	/**
 	 * Iterator na korzeń drzewa.
-	 * @return	   Iterator na korzeń drzewa
+	 * @return Iterator na korzeń drzewa
 	 */
 	Iterator root() const
 	{
@@ -317,7 +325,7 @@ public:
 	}
 
 	/**
-	 * Metoda czyszcząca drzewo.
+	 * Metoda rekursywnie czyszcząca drzewo.
 	 * W przypadku wycieku wyświetlany jest błąd.
 	 * "POSSIBLE MEMORY LEAK"
 	 */
