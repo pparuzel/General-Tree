@@ -33,13 +33,14 @@ public:
 	std::size_t size();
 	void print(Iterator );
 };
-
  */
-/**
- * Pojemnik o strukturze drzewiastej. Użyta struktura jest
- * drzewem ogólnym z jednym możliwym korzeniem.
- * Przechowywany jest wskaźnik na korzeń, a więc
- * jest możliwość braku korzenia.
+
+/*! \mainpage Drzewo Ogólne
+ * \section intro Wstęp
+ * Pojemnik o strukturze drzewiastej. Użyta struktura jest\n
+ * drzewem ogólnym z jednym możliwym korzeniem.\n
+ * Przechowywany jest wskaźnik na korzeń, a więc\n
+ * jest możliwość braku korzenia.\n
  */
 template<typename T>
 class Drzewo
@@ -55,11 +56,11 @@ class Drzewo
 	};
 
 	/**
-	 * Klasa Iterator, pełniąca funkcję wskaźnika na elementy drzewa.
-	 * Iterator jest jednokierunkowy.
-	 * W drzewie iterator na początkowy węzeł jest wywoływany metodą
-	 * begin(), a iterator wskazujący za ostatni element metodą end().
-	 * Przejście po drzewie jest Post-Order.
+	 * Klasa Iterator, pełniąca funkcję wskaźnika na elementy drzewa.\n
+	 * Iterator jest jednokierunkowy.\n
+	 * W drzewie iterator na początkowy węzeł jest wywoływany metodą\n
+	 * begin(), a iterator wskazujący za ostatni element metodą end().\n
+	 * Przejście po drzewie jest Post-Order.\n
 	 */
 	class Iterator
 	{
@@ -154,15 +155,15 @@ public:
 	std::size_t _size;
 
 	/**
-	 * Konstruktor domyślny tworzący drzewo
-	 * bez korzenia o rozmiarze 0.
+	 * Konstruktor domyślny tworzący drzewo\n
+	 * bez korzenia o rozmiarze 0.\n
 	 */
 	Drzewo() : _root(nullptr), _size(0)
 	{}
 
 	/**
-	 * Konstruktor z wartością typu T określonego szablonem.
-	 * Tworzy drzewo o rozmiarze 1 i korzeniu o wartości
+	 * Konstruktor z wartością typu T określonego szablonem.\n
+	 * Tworzy drzewo o rozmiarze 1 i korzeniu o wartości\n
 	 * podanej jako parametr.
 	 */
 	Drzewo(const T& value) : _root(new Node(value)), _size(1)
@@ -182,9 +183,9 @@ public:
 	}
 
 	/**
-	 * Destruktor drzewa.
-	 * Najpierw czyszczone jest drzewo.
-	 * W przypadku wycieku wyświetlany jest błąd.
+	 * Destruktor drzewa.\n
+	 * Najpierw czyszczone jest drzewo.\n
+	 * W przypadku wycieku wyświetlany jest błąd.\n
 	 * "POSSIBLE MEMORY LEAK"
 	 */
 	~Drzewo()
@@ -194,8 +195,8 @@ public:
 
 
 	/**
-	 * Operator przypisania.
-	 * W przypadku wycieku wyświetlany jest błąd.
+	 * Operator przypisania.\n
+	 * W przypadku wycieku wyświetlany jest błąd.\n
 	 * "POSSIBLE MEMORY LEAK"
 	 */
 	Drzewo& operator=(const Drzewo& tree)
@@ -211,10 +212,10 @@ public:
 	}
 
 	/**
-	 * Operacja wstawiajaca element do drzewa. Jesli podany
-	 * wskaznik na rodzica jest pusty, a indeks jest rowny 0,
-	 * element zostanie utworzony w korzeniu (jesli to mozliwe).
-	 * Ponowna próba wstawienia na miejsce korzenia daje zachowanie niezdefiniowane. 
+	 * Operacja wstawiajaca element do drzewa. Jesli podany\n
+	 * wskaznik na rodzica jest pusty, a indeks jest rowny 0,\n
+	 * element zostanie utworzony w korzeniu (jeśli to mozliwe).\n
+	 * Ponowna próba wstawienia na miejsce korzenia daje zachowanie niezdefiniowane.
 	 *
 	 * @param  value  	element dodawany do drzewa
 	 * @param  parent 	iterator wskazujacy na rodzica
@@ -268,7 +269,7 @@ public:
 	}
 
 	/**
-	 * Iterator na koniec drzewa.
+	 * Iterator na koniec drzewa.\n
 	 * Wskazuje za ostatnim elementem.
 	 * @return Iterator za "root"
 	 */
@@ -278,7 +279,7 @@ public:
 	}
 
 	/**
-	 * Metoda zwracająca iterator na dziecko
+	 * Metoda zwracająca iterator na dziecko\n
 	 * na podanej pozycji pod podanym rodzicem.
 	 * @param  parent 	rodzic wskazywanego node'a
 	 * @param  index  	pozycja danego dziecka (numerowane od 0)
@@ -301,7 +302,7 @@ public:
 
 
 	/**
-	 * Operacja usuwająca węzeł wskazany przez iterator.
+	 * Operacja usuwająca węzeł wskazany przez iterator.\n
 	 * Usuwane są również wszystkie dzieci i poddzieci.
 	 * @param  iter iterator na usuwany węzeł
 	 */
@@ -325,8 +326,8 @@ public:
 	}
 
 	/**
-	 * Metoda rekursywnie czyszcząca drzewo.
-	 * W przypadku wycieku wyświetlany jest błąd.
+	 * Metoda rekursywnie czyszcząca drzewo.\n
+	 * W przypadku wycieku wyświetlany jest błąd.\n
 	 * "POSSIBLE MEMORY LEAK"
 	 */
 	void clear()

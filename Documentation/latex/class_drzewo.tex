@@ -1,0 +1,241 @@
+\hypertarget{class_drzewo}{}\section{Drzewo$<$ T $>$ Class Template Reference}
+\label{class_drzewo}\index{Drzewo$<$ T $>$@{Drzewo$<$ T $>$}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_drzewo_a349719391d8470c24d68e8a4f0fecf3c}\label{class_drzewo_a349719391d8470c24d68e8a4f0fecf3c}} 
+typedef T {\bfseries value\+\_\+type}
+\item 
+\mbox{\Hypertarget{class_drzewo_a030e94f1940858d588debb37c16327bd}\label{class_drzewo_a030e94f1940858d588debb37c16327bd}} 
+typedef Iterator {\bfseries iterator}
+\item 
+\mbox{\Hypertarget{class_drzewo_a6a773d36cb8f4997a95cfb2d6f56bb9a}\label{class_drzewo_a6a773d36cb8f4997a95cfb2d6f56bb9a}} 
+typedef std\+::size\+\_\+t {\bfseries size\+\_\+type}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_drzewo_a9b87f8101458fea6c866ffd01efa9ef6}{Drzewo} ()
+\item 
+\hyperlink{class_drzewo_aca8b3e3da416a8e0221c1199ceb579c8}{Drzewo} (const T \&value)
+\item 
+\hyperlink{class_drzewo_a88fdcfad4e56e0053e34d493f656f61f}{Drzewo} (const \hyperlink{class_drzewo}{Drzewo} \&tree)
+\item 
+\hyperlink{class_drzewo_acbc76af50077660d8a75eaa4e086eac1}{$\sim$\+Drzewo} ()
+\item 
+\hyperlink{class_drzewo}{Drzewo} \& \hyperlink{class_drzewo_ab5b78c9c5c3b69ddc44018a53733badf}{operator=} (const \hyperlink{class_drzewo}{Drzewo} \&tree)
+\item 
+Iterator \hyperlink{class_drzewo_a2a8b76e1514a1823c0ee95e96b1a5553}{insert} (const T \&value, Iterator it\+\_\+parent, std\+::size\+\_\+t index)
+\item 
+Iterator \hyperlink{class_drzewo_a38d0437561533042f513df6db1ae9688}{root} () const
+\item 
+Iterator \hyperlink{class_drzewo_a73e93ed5f5c9768143a48f3244bb0b76}{begin} () const
+\item 
+Iterator \hyperlink{class_drzewo_a4d594d3e08d1c4e21223c106baef0013}{end} () const
+\item 
+Iterator \hyperlink{class_drzewo_aa82184dbff4418f916378bb2d861012e}{get\+Child} (Iterator parent, std\+::size\+\_\+t index) const
+\item 
+int \hyperlink{class_drzewo_a4ce176ba0ad39902d681d900c4b6163d}{get\+Number\+Of\+Children} (Iterator parent) const
+\item 
+void \hyperlink{class_drzewo_a34da2244db4e0ddfaa094d856099b091}{erase} (Iterator iter)
+\item 
+void \hyperlink{class_drzewo_ab40006bf25bf232befcd4643a8c527cf}{clear} ()
+\item 
+bool \hyperlink{class_drzewo_af02b0705726b31926a1a3e0b8bbef233}{empty} () const
+\item 
+std\+::size\+\_\+t \hyperlink{class_drzewo_a778ee17b16674b9d0577d22f5d55fa04}{size} () const
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_drzewo_a3b2c561ed98ae6d50affe3f871b5c89d}\label{class_drzewo_a3b2c561ed98ae6d50affe3f871b5c89d}} 
+Node $\ast$ {\bfseries \+\_\+root}
+\item 
+\mbox{\Hypertarget{class_drzewo_a7286876ce56a8ff1a04a58ff526aa7da}\label{class_drzewo_a7286876ce56a8ff1a04a58ff526aa7da}} 
+std\+::size\+\_\+t {\bfseries \+\_\+size}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_drzewo_a9b87f8101458fea6c866ffd01efa9ef6}\label{class_drzewo_a9b87f8101458fea6c866ffd01efa9ef6}} 
+\index{Drzewo@{Drzewo}!Drzewo@{Drzewo}}
+\index{Drzewo@{Drzewo}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{Drzewo()}{Drzewo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::\hyperlink{class_drzewo}{Drzewo} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Konstruktor domyślny tworzący drzewo~\newline
+bez korzenia o rozmiarze 0.~\newline
+\mbox{\Hypertarget{class_drzewo_aca8b3e3da416a8e0221c1199ceb579c8}\label{class_drzewo_aca8b3e3da416a8e0221c1199ceb579c8}} 
+\index{Drzewo@{Drzewo}!Drzewo@{Drzewo}}
+\index{Drzewo@{Drzewo}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{Drzewo()}{Drzewo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::\hyperlink{class_drzewo}{Drzewo} (\begin{DoxyParamCaption}\item[{const T \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Konstruktor z wartością typu T określonego szablonem.~\newline
+Tworzy drzewo o rozmiarze 1 i korzeniu o wartości~\newline
+podanej jako parametr. \mbox{\Hypertarget{class_drzewo_a88fdcfad4e56e0053e34d493f656f61f}\label{class_drzewo_a88fdcfad4e56e0053e34d493f656f61f}} 
+\index{Drzewo@{Drzewo}!Drzewo@{Drzewo}}
+\index{Drzewo@{Drzewo}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{Drzewo()}{Drzewo()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::\hyperlink{class_drzewo}{Drzewo} (\begin{DoxyParamCaption}\item[{const \hyperlink{class_drzewo}{Drzewo}$<$ T $>$ \&}]{tree }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Konstruktor kopiujący drzewo. \mbox{\Hypertarget{class_drzewo_acbc76af50077660d8a75eaa4e086eac1}\label{class_drzewo_acbc76af50077660d8a75eaa4e086eac1}} 
+\index{Drzewo@{Drzewo}!````~Drzewo@{$\sim$\+Drzewo}}
+\index{````~Drzewo@{$\sim$\+Drzewo}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{$\sim$\+Drzewo()}{~Drzewo()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::$\sim$\hyperlink{class_drzewo}{Drzewo} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Destruktor drzewa.~\newline
+Najpierw czyszczone jest drzewo.~\newline
+W przypadku wycieku wyświetlany jest błąd.~\newline
+\char`\"{}\+P\+O\+S\+S\+I\+B\+L\+E M\+E\+M\+O\+R\+Y L\+E\+A\+K\char`\"{} 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_drzewo_a73e93ed5f5c9768143a48f3244bb0b76}\label{class_drzewo_a73e93ed5f5c9768143a48f3244bb0b76}} 
+\index{Drzewo@{Drzewo}!begin@{begin}}
+\index{begin@{begin}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+Iterator \hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Iterator na początek drzewa. \begin{DoxyReturn}{Returns}
+Iterator na \char`\"{}left-\/most child\char`\"{} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_drzewo_ab40006bf25bf232befcd4643a8c527cf}\label{class_drzewo_ab40006bf25bf232befcd4643a8c527cf}} 
+\index{Drzewo@{Drzewo}!clear@{clear}}
+\index{clear@{clear}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Metoda rekursywnie czyszcząca drzewo.~\newline
+W przypadku wycieku wyświetlany jest błąd.~\newline
+\char`\"{}\+P\+O\+S\+S\+I\+B\+L\+E M\+E\+M\+O\+R\+Y L\+E\+A\+K\char`\"{} \mbox{\Hypertarget{class_drzewo_af02b0705726b31926a1a3e0b8bbef233}\label{class_drzewo_af02b0705726b31926a1a3e0b8bbef233}} 
+\index{Drzewo@{Drzewo}!empty@{empty}}
+\index{empty@{empty}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Metoda zwracająca czy drzewo jest puste. \begin{DoxyReturn}{Returns}
+boolean 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_drzewo_a4d594d3e08d1c4e21223c106baef0013}\label{class_drzewo_a4d594d3e08d1c4e21223c106baef0013}} 
+\index{Drzewo@{Drzewo}!end@{end}}
+\index{end@{end}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+Iterator \hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Iterator na koniec drzewa.~\newline
+Wskazuje za ostatnim elementem. \begin{DoxyReturn}{Returns}
+Iterator za \char`\"{}root\char`\"{} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_drzewo_a34da2244db4e0ddfaa094d856099b091}\label{class_drzewo_a34da2244db4e0ddfaa094d856099b091}} 
+\index{Drzewo@{Drzewo}!erase@{erase}}
+\index{erase@{erase}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{erase()}{erase()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::erase (\begin{DoxyParamCaption}\item[{Iterator}]{iter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Operacja usuwająca węzeł wskazany przez iterator.~\newline
+Usuwane są również wszystkie dzieci i poddzieci. 
+\begin{DoxyParams}{Parameters}
+{\em iter} & iterator na usuwany węzeł \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_drzewo_aa82184dbff4418f916378bb2d861012e}\label{class_drzewo_aa82184dbff4418f916378bb2d861012e}} 
+\index{Drzewo@{Drzewo}!get\+Child@{get\+Child}}
+\index{get\+Child@{get\+Child}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{get\+Child()}{getChild()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+Iterator \hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::get\+Child (\begin{DoxyParamCaption}\item[{Iterator}]{parent,  }\item[{std\+::size\+\_\+t}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Metoda zwracająca iterator na dziecko~\newline
+na podanej pozycji pod podanym rodzicem. 
+\begin{DoxyParams}{Parameters}
+{\em parent} & rodzic wskazywanego node\textquotesingle{}a \\
+\hline
+{\em index} & pozycja danego dziecka (numerowane od 0) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+iterator na dziecko 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_drzewo_a4ce176ba0ad39902d681d900c4b6163d}\label{class_drzewo_a4ce176ba0ad39902d681d900c4b6163d}} 
+\index{Drzewo@{Drzewo}!get\+Number\+Of\+Children@{get\+Number\+Of\+Children}}
+\index{get\+Number\+Of\+Children@{get\+Number\+Of\+Children}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{get\+Number\+Of\+Children()}{getNumberOfChildren()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::get\+Number\+Of\+Children (\begin{DoxyParamCaption}\item[{Iterator}]{parent }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Metoda zwracająca liczbę dzieci danego wezła 
+\begin{DoxyParams}{Parameters}
+{\em parent} & iterator na rodzica \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+liczba całkowita ilości dzieci 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_drzewo_a2a8b76e1514a1823c0ee95e96b1a5553}\label{class_drzewo_a2a8b76e1514a1823c0ee95e96b1a5553}} 
+\index{Drzewo@{Drzewo}!insert@{insert}}
+\index{insert@{insert}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{insert()}{insert()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+Iterator \hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::insert (\begin{DoxyParamCaption}\item[{const T \&}]{value,  }\item[{Iterator}]{it\+\_\+parent,  }\item[{std\+::size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Operacja wstawiajaca element do drzewa. Jesli podany~\newline
+wskaznik na rodzica jest pusty, a indeks jest rowny 0,~\newline
+element zostanie utworzony w korzeniu (jeśli to mozliwe).~\newline
+Ponowna próba wstawienia na miejsce korzenia daje zachowanie niezdefiniowane.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & element dodawany do drzewa \\
+\hline
+{\em parent} & iterator wskazujacy na rodzica \\
+\hline
+{\em index} & indeks w tablicy dzieci gdzie ma byc dodany element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+iterator wskazujacy na nowo utworzony element 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_drzewo_ab5b78c9c5c3b69ddc44018a53733badf}\label{class_drzewo_ab5b78c9c5c3b69ddc44018a53733badf}} 
+\index{Drzewo@{Drzewo}!operator=@{operator=}}
+\index{operator=@{operator=}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{class_drzewo}{Drzewo}\& \hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \hyperlink{class_drzewo}{Drzewo}$<$ T $>$ \&}]{tree }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Operator przypisania.~\newline
+W przypadku wycieku wyświetlany jest błąd.~\newline
+\char`\"{}\+P\+O\+S\+S\+I\+B\+L\+E M\+E\+M\+O\+R\+Y L\+E\+A\+K\char`\"{} \mbox{\Hypertarget{class_drzewo_a38d0437561533042f513df6db1ae9688}\label{class_drzewo_a38d0437561533042f513df6db1ae9688}} 
+\index{Drzewo@{Drzewo}!root@{root}}
+\index{root@{root}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{root()}{root()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+Iterator \hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::root (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Iterator na korzeń drzewa. \begin{DoxyReturn}{Returns}
+Iterator na korzeń drzewa 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_drzewo_a778ee17b16674b9d0577d22f5d55fa04}\label{class_drzewo_a778ee17b16674b9d0577d22f5d55fa04}} 
+\index{Drzewo@{Drzewo}!size@{size}}
+\index{size@{size}!Drzewo@{Drzewo}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::size\+\_\+t \hyperlink{class_drzewo}{Drzewo}$<$ T $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Metoda zwracająca rozmiar drzewa. \begin{DoxyReturn}{Returns}
+std\+::size\+\_\+t 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+drzewo.\+hpp\end{DoxyCompactItemize}
