@@ -162,7 +162,7 @@ public:
 	{}
 
 	/**
-	 * Konstruktor z wartością typu T określonego szablonem.\n
+	 * Konstruktor z parametrem typu T określonego szablonem.\n
 	 * Tworzy drzewo o rozmiarze 1 i korzeniu o wartości\n
 	 * podanej jako parametr.
 	 */
