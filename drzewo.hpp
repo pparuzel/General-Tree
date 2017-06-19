@@ -209,6 +209,8 @@ public:
 		{
 			copy_node(n->value, n, this->_root);
 		}
+
+		return *this;
 	}
 
 	/**
