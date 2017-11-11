@@ -34,3 +34,6 @@
 # Other
 main.cpp
 .DS_Store
+.idea/
+cmake-build-debug/
+/CMakeLists.txt
