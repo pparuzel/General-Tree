@@ -14,7 +14,7 @@ Empty container
 P, K, P, N, H, U, P, O, O, A, 
 Highest value element: U
 ```
-
+  
 The data structure has been tested by implementing **CppUnit** test cases.  
 **Doxygen** tool has generated the documentation relying on the configuration file  
 and multi-line comments.
