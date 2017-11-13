@@ -25,6 +25,7 @@
         GeneralTree(const GeneralTree& );
         ~GeneralTree();
         GeneralTree& operator=(const GeneralTree& );
+        GeneralTree& operator=(GeneralTree&& ) noexcept;
         Iterator insert(const T& , Iterator , std::size_t );
         Iterator root();
         Iterator begin();
