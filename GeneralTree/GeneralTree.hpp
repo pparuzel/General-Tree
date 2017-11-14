@@ -62,8 +62,10 @@ class GeneralTree
 
         Node* ptr;
 
-        explicit CIterator(Node* n = nullptr) : ptr(n) {}
+        explicit CIterator(Node* n) : ptr(n) {}
     public:
+        CIterator() : ptr(nullptr) {}
+
         CIterator(const CIterator& it) : ptr(it.ptr) {}
 
         CIterator(CIterator&& it) noexcept : ptr(it.ptr)
@@ -146,8 +148,10 @@ class GeneralTree
 
         Node* ptr;
 
-        explicit Iterator(Node* n = nullptr) : ptr(n) {}
+        explicit Iterator(Node* n) : ptr(n) {}
     public:
+        Iterator() : ptr(nullptr) {}
+
         Iterator(const Iterator& it) : ptr(it.ptr) {}
 
         Iterator(Iterator&& it) noexcept : ptr(it.ptr)
