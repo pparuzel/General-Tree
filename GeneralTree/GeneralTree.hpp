@@ -9,31 +9,34 @@
     template <typename T>
     class GeneralTree
     {
-        struct Node;
-        class Iterator;
-
         Node* _root;
         int _size;
     public:
-        typedef T value_type;
-        typedef Iterator iterator;
+        typedef T           value_type;
+        typedef Iterator    iterator;
+        typedef CIterator   const_iterator;
         typedef std::size_t size_type;
 
         GeneralTree();
         GeneralTree(const T& );
-        GeneralTree(T&& );
+        GeneralTree(T&& ) noexcept;
         GeneralTree(const GeneralTree& );
         ~GeneralTree();
         GeneralTree& operator=(const GeneralTree& );
         GeneralTree& operator=(GeneralTree&& ) noexcept;
-        Iterator insert(const T& , Iterator , std::size_t );
-        Iterator root();
-        Iterator begin();
-        Iterator end();
-        Iterator getChild(Iterator , std::size_t );
-        int getNumberOfChildren(Iterator );
-        void erase(Iterator );
-        void clear(Iterator );
+        iterator insert(const T& , const_iterator , std::size_t );
+        const_iterator root() const;
+        iterator root();
+        const_iterator begin() const;
+        iterator begin();
+        const_iterator cbegin() const;
+        const_iterator end() const;
+        iterator end();
+        const_iterator cend() const;
+        const_iterator getChild(const_iterator , std::size_t );
+        int getNumberOfChildren(const_iterator );
+        void erase(const_iterator );
+        void clear();
         bool empty();
         std::size_t size();
     };
@@ -53,13 +56,117 @@ class GeneralTree
         explicit Node(T val = T(), Node* par = nullptr) : value(val), parent(par) {}
     };
 
+    class CIterator
+    {
+        friend class GeneralTree;
+
+        Node* ptr;
+
+        explicit CIterator(Node* n = nullptr) : ptr(n) {}
+    public:
+        CIterator(const CIterator& it) : ptr(it.ptr) {}
+
+        CIterator(CIterator&& it) noexcept : ptr(it.ptr)
+        {
+            it.ptr = nullptr;
+        }
+
+        CIterator& operator=(const CIterator& it)
+        {
+            ptr = it.ptr;
+            return *this;
+        }
+
+        CIterator& operator=(CIterator&& it) noexcept
+        {
+            ptr = it.ptr;
+            it.ptr = nullptr;
+            return *this;
+        }
+
+        const T& operator*() const
+        {
+            return ptr->value;
+        }
+
+        CIterator& operator++()
+        {
+            std::vector<Node*>& vec = ptr->parent->children;
+            unsigned long vecsize = ptr->parent != nullptr ? vec.size() : 0;
+            unsigned long index;
+            for(index = 0; index < vecsize; index++)
+            {
+                if(vec[index] == ptr)
+                {
+                    index++;
+                    break;
+                }
+            }
+            if(index < vecsize)
+            {
+                ptr = ptr->parent->children[index];
+                while(!ptr->children.empty())
+                {
+                    ptr = ptr->children[0];
+                }
+            }
+            else
+            {
+                ptr = ptr->parent;
+            }
+            return *this;
+        }
+
+        const T* operator->() const
+        {
+            return &ptr->value;
+        }
+
+        CIterator operator++(int)
+        {
+            CIterator temp = *this;
+            this->operator++();
+            return temp;
+        }
+
+        bool operator==(CIterator it) const
+        {
+            return this->ptr == it.ptr;
+        }
+
+        bool operator!=(CIterator it) const
+        {
+            return this->ptr != it.ptr;
+        }
+    };
+
     class Iterator
     {
         friend class GeneralTree;
 
         Node* ptr;
-    public:
+
         explicit Iterator(Node* n = nullptr) : ptr(n) {}
+    public:
+        Iterator(const Iterator& it) : ptr(it.ptr) {}
+
+        Iterator(Iterator&& it) noexcept : ptr(it.ptr)
+        {
+            it.ptr = nullptr;
+        }
+
+        Iterator& operator=(const Iterator& it)
+        {
+            ptr = it.ptr;
+            return *this;
+        }
+
+        Iterator& operator=(Iterator&& it) noexcept
+        {
+            ptr = it.ptr;
+            it.ptr = nullptr;
+            return *this;
+        }
 
         T& operator*()
         {
@@ -115,7 +222,13 @@ class GeneralTree
         {
             return this->ptr != it.ptr;
         }
+
+        operator CIterator() const // NOLINT
+        {
+            return CIterator(ptr);
+        }
     };
+
     void delete_node(Node* node)
     {
         if (node == nullptr) { return; }
@@ -161,6 +274,7 @@ class GeneralTree
 public:
     typedef T           value_type;
     typedef Iterator    iterator;
+    typedef CIterator   const_iterator;
     typedef std::size_t size_type;
 
     GeneralTree() : _root(nullptr), _size(0) {}
@@ -179,8 +293,6 @@ public:
 
     GeneralTree(GeneralTree&& tree) noexcept : _root(tree._root), _size(tree._size)
     {
-        if(tree._root == nullptr) return;
-        this->_root = tree._root;
         tree._root = nullptr;
         tree._size = 0;
     }
@@ -214,60 +326,104 @@ public:
         return *this;
     }
 
-    Iterator insert(const T& value, Iterator it_parent, std::size_t index)
+    iterator insert(const T& value, const_iterator it_parent, std::size_t index)
     {
         _size++;
         if (it_parent.ptr == nullptr && index == 0 && _root == nullptr)
         {
             _root = new Node(value);
-            return Iterator(_root);
+            return iterator(_root);
         }
         auto* node = new Node(value, it_parent.ptr);
         if (index >= it_parent.ptr->children.size())
         {
             it_parent.ptr->children.push_back(node);
-            return Iterator(node);
+            return iterator(node);
         }
         std::vector<Node*>* children = &(it_parent.ptr->children);
         children->insert(children->begin() + index, node);
-        return Iterator(node);
+        return iterator(node);
     }
 
-    Iterator root() const
+    iterator root()
     {
-        return Iterator(_root);
+        return iterator(_root);
     }
 
-    Iterator begin() const
+    const_iterator root() const
+    {
+        return const_iterator(_root);
+    }
+
+    iterator begin()
     {
         Node* temp = _root;
         if(_size <= 1)
         {
-            return Iterator(_root);
+            return iterator(_root);
         }
         while(!temp->children.empty())
         {
             temp = temp->children[0];
         }
-        return Iterator(temp);
+        return iterator(temp);
     }
 
-    Iterator end() const
+    const_iterator begin() const
     {
-        return Iterator(nullptr);
+        Node* temp = _root;
+        if(_size <= 1)
+        {
+            return const_iterator(_root);
+        }
+        while(!temp->children.empty())
+        {
+            temp = temp->children[0];
+        }
+        return const_iterator(temp);
     }
 
-    Iterator getChild(Iterator parent, std::size_t index) const
+    const_iterator cbegin() const
     {
-        return Iterator(parent.ptr->children[index]);
+        Node* temp = _root;
+        if(_size <= 1)
+        {
+            return const_iterator(_root);
+        }
+        while(!temp->children.empty())
+        {
+            temp = temp->children[0];
+        }
+        return const_iterator(temp);
     }
 
-    int getNumberOfChildren(Iterator parent) const
+    iterator end()
+    {
+        return iterator(nullptr);
+    }
+
+    const_iterator end() const
+    {
+        return const_iterator(nullptr);
+    }
+
+    const_iterator cend() const
+    {
+        return const_iterator(nullptr);
+    }
+
+    const_iterator getChild(const_iterator parent, std::size_t index) const
+    {
+        if (parent.ptr == nullptr) { return root(); }
+        return const_iterator(parent.ptr->children[index]);
+    }
+
+    int getNumberOfChildren(const_iterator parent) const
     {
         return static_cast<int>(parent.ptr->children.size());
     }
 
-    void erase(Iterator iter)
+    void erase(const_iterator iter)
     {
         if (iter.ptr == _root && _root != nullptr)
         {
