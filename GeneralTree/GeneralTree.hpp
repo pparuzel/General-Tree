@@ -1,6 +1,13 @@
 #ifndef __GENERAL_TREE_HPP__
 #define __GENERAL_TREE_HPP__
 
+/**
+ *  GeneralTree data structure
+ *
+ *  @author  Pawel Paruzel
+ *  @version 0.2.1
+ */
+
 #include <vector>
 #include <deque>
 
@@ -34,6 +41,7 @@
         iterator end();
         const_iterator cend() const;
         const_iterator getChild(const_iterator , std::size_t );
+        iterator getChild(const_iterator , std::size_t );
         int getNumberOfChildren(const_iterator );
         void erase(const_iterator );
         void clear();
@@ -276,13 +284,24 @@ class GeneralTree
     Node* _root;
     std::size_t _size;
 public:
+    /***************
+     * TYPE TRAITS *
+     ***************/
     typedef T           value_type;
     typedef Iterator    iterator;
     typedef CIterator   const_iterator;
     typedef std::size_t size_type;
 
+    /**
+     * Default constructor creates tree without a root
+     */
     GeneralTree() : _root(nullptr), _size(0) {}
 
+    /**
+     * Constructor initilizing tree with a root value
+     *
+     * @param value assigned to root
+     */
     explicit GeneralTree(const T& value) : _root(new Node(value)), _size(1) {}
 
     GeneralTree(const GeneralTree& tree) : _root(nullptr), _size(tree._size)
@@ -322,6 +341,7 @@ public:
 
     GeneralTree& operator=(GeneralTree&& tree) noexcept
     {
+        this->clear();
         this->_root = tree._root;
         this->_size = tree._size;
         tree._root = nullptr;
@@ -330,6 +350,19 @@ public:
         return *this;
     }
 
+    /**
+     * Insertion method
+     * To insert value into the root
+     * one must pass value, empty iterator and index 0
+     * Inserting to root twice results in an Undefined Behavior
+     * If index position of the child is larger than
+     * amount of children, value is inserted as the last element
+     *
+     * @param value value to insert
+     * @param it_parent iterator to the parent
+     * @param index position of the new child
+     * @return iterator pointing at the inserted node
+     */
     iterator insert(const T& value, const_iterator it_parent, std::size_t index)
     {
         _size++;
@@ -349,16 +382,31 @@ public:
         return iterator(node);
     }
 
+    /**
+     * Mutable iterator to root of the tree
+     *
+     * @return iterator to root
+     */
     iterator root()
     {
         return iterator(_root);
     }
 
+    /**
+     * Immutable iterator to root of the tree
+     *
+     * @return const_iterator to root
+     */
     const_iterator root() const
     {
         return const_iterator(_root);
     }
 
+    /**
+     * Mutable iterator to first element in post-order
+     *
+     * @return iterator to left-most element of the tree
+     */
     iterator begin()
     {
         Node* temp = _root;
@@ -373,6 +421,11 @@ public:
         return iterator(temp);
     }
 
+    /**
+     * Immutable iterator to first element in post-order
+     *
+     * @return const_iterator to left-most element of the tree
+     */
     const_iterator begin() const
     {
         Node* temp = _root;
@@ -387,6 +440,11 @@ public:
         return const_iterator(temp);
     }
 
+    /**
+     * Immutable iterator to first element in post-order
+     *
+     * @return const_iterator to left-most element of the tree
+     */
     const_iterator cbegin() const
     {
         Node* temp = _root;
@@ -401,32 +459,92 @@ public:
         return const_iterator(temp);
     }
 
+    /**
+     * Mutable iterator to the element
+     * following the last element
+     *
+     * @return iterator to past-the-end element
+     */
     iterator end()
     {
         return iterator(nullptr);
     }
 
+    /**
+     * Immutable iterator to the element
+     * following the last element
+     *
+     * @return const_iterator to past-the-end element
+     */
     const_iterator end() const
     {
         return const_iterator(nullptr);
     }
 
+    /**
+     * Immutable iterator to the element
+     * following the last element
+     *
+     * @return const_iterator to past-the-end element
+     */
     const_iterator cend() const
     {
         return const_iterator(nullptr);
     }
 
+    /**
+     * Method of getting any child of parent iterator
+     * If parent iterator is empty
+     * then root node is returned
+     *
+     * @param parent iterator over the child
+     * @param index position of the child
+     * @return const_iterator to the child
+     */
     const_iterator getChild(const_iterator parent, std::size_t index) const
     {
         if (parent.ptr == nullptr) { return root(); }
         return const_iterator(parent.ptr->children[index]);
     }
 
+    /**
+     * Method of getting any child of parent iterator
+     * If parent iterator is empty
+     * then root node is returned
+     * Parent with no children results in Undefined Behavior
+     * Index out of bounds results in Undefined Behavior
+     *
+     * @param parent iterator over the child
+     * @param index position of the child
+     * @return iterator to the child
+     */
+    iterator getChild(const_iterator parent, std::size_t index)
+    {
+        if (parent.ptr == nullptr) { return root(); }
+        return iterator(parent.ptr->children[index]);
+    }
+
+    /**
+     * Method of getting number of children
+     * If parent is an empty iterator
+     * the return value is 1 if root exists
+     * or 0 if it does not
+     *
+     * @param parent iterator to the node
+     * @return integer amount of children of the parent iterator
+     */
     int getNumberOfChildren(const_iterator parent) const
     {
+        if (parent.ptr == nullptr) { return static_cast<int>(_root != nullptr); }
         return static_cast<int>(parent.ptr->children.size());
     }
 
+    /**
+     * Method of erasing an iterator pointee
+     * Empty iterator results in Undefined Behavior
+     *
+     * @param iter iterator pointing to a node
+     */
     void erase(const_iterator iter)
     {
         if (iter.ptr == _root && _root != nullptr)
@@ -446,6 +564,11 @@ public:
         delete_node(iter.ptr);
     }
 
+    /**
+     * Method for clearing the whole tree
+     * Deallocates all nodes iteratively
+     * Assigns root to nullptr
+     */
     void clear()
     {
         if (_root != nullptr)
@@ -453,11 +576,21 @@ public:
         _root = nullptr;
     }
 
+    /**
+     * Returns if the root is empty
+     *
+     * @return boolean if root is nullptr
+     */
     bool empty() const
     {
         return _root == nullptr;
     }
 
+    /**
+     * Returns size of the tree
+     *
+     * @return number of nodes in the tree
+     */
     std::size_t size() const
     {
         return _size;
