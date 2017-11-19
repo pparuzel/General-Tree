@@ -260,6 +260,7 @@ class GeneralTree
             }
         }
         delete current;
+        --_size;
     }
     void copy_node(T val, Node* other, Node* parent)
     {
