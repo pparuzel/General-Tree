@@ -257,35 +257,26 @@ class GeneralTree
         }
     };
 
-    void delete_node(Node* node)
+    void release_node_and_successors(Node* node)
     {
         if (node == nullptr) { return; }
-        std::deque<Node*> stack;
         Node* current = node;
-        if (node == _root)
-        {
-            _root = nullptr;
-        }
-        stack.push_back(current);
-        while (!stack.empty())
+        while (current != node || !node->children.empty())
         {
             if (!current->children.empty())
             {
                 current = current->children.back();
-                stack.push_back(current);
             }
             else
             {
                 delete current;
                 --_size;
-                stack.pop_back();
-                if (!stack.empty())
-                {
-                    current = stack.back();
-                    current->children.pop_back();
-                }
+                current = current->parent;
+                current->children.pop_back();
             }
         }
+        delete current;
+        --_size;
     }
     void copy_successors(Node* parent_copy, Node* other)
     {
@@ -583,7 +574,7 @@ public:
     {
         if (iter.ptr == _root && _root != nullptr)
         {
-            delete_node(iter.ptr);
+            release_node_and_successors(iter.ptr);
             _root = nullptr;
             return;
         }
@@ -595,7 +586,7 @@ public:
             pos++;
         }
         parent_children.erase(parent_children.begin()+pos);
-        delete_node(iter.ptr);
+        release_node_and_successors(iter.ptr);
     }
 
     /**
@@ -606,7 +597,7 @@ public:
     void clear()
     {
         if (_root != nullptr)
-            delete_node(_root);
+            release_node_and_successors(_root);
         _root = nullptr;
     }
 
