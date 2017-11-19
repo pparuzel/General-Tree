@@ -31,6 +31,9 @@
 *.out
 *.app
 
+# GitHub Theme
+_config.yml
+
 # Other
 main.cpp
 .DS_Store
