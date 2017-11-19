@@ -5,11 +5,10 @@
  *  GeneralTree data structure
  *
  *  @author  Pawel Paruzel
- *  @version 0.2.2
+ *  @version 0.2.4
  */
 
 #include <vector>
-#include <deque>
 
 /*
 
@@ -55,11 +54,11 @@ namespace rcn {
 template<typename T>
 class GeneralTree
 {
-	/***************
-	 *			   *
-	 *  TREE NODE  *
-	 *			   *
-	 ***************/
+    /***************
+     *             *
+     *  TREE NODE  *
+     *             *
+     ***************/
     struct Node
     {
         T value;
@@ -71,9 +70,9 @@ class GeneralTree
 
 
     /********************
-     *					*
+     *                  *
      *  CONST ITERATOR  *
-     *					*
+     *                  *
      ********************/
     class CIterator
     {
@@ -162,9 +161,9 @@ class GeneralTree
     };
 
     /************************
-	 *						*
+     *                      *
      *  NON-CONST ITERATOR  *
-     *						*
+     *                      *
      ************************/
     class Iterator
     {
@@ -280,27 +279,29 @@ class GeneralTree
     }
     void copy_successors(Node* parent_copy, Node* other)
     {
-    	// Undefined Behavior if copy has
-    	// children or parent_copy is nullptr
-    	if (other == nullptr) { return; }
-    	auto* current = other;
-    	while (current != other->parent)
-    	{
-    		auto copy_size = parent_copy->children.size();
-    		if (parent_copy->children.size() < current->children.size())
-    		{
-    			parent_copy->children.push_back(new Node(current->children[copy_size]->value, parent_copy));
-    			++_size;
-    			current = current->children[copy_size];
-    			parent_copy = parent_copy->children[copy_size];
-    		}
-    		else
-    		{
-    			current = current->parent;
-    			parent_copy = parent_copy->parent;
-    		}
+        // Undefined Behavior if copy has
+        // children or parent_copy is nullptr
+        // Remember to always increase _size
+        // if creating a node before this function
+        if (other == nullptr) { return; }
+        auto* current = other;
+        while (current != other->parent)
+        {
+            auto copy_size = parent_copy->children.size();
+            if (parent_copy->children.size() < current->children.size())
+            {
+                parent_copy->children.push_back(new Node(current->children[copy_size]->value, parent_copy));
+                ++_size;
+                current = current->children[copy_size];
+                parent_copy = parent_copy->children[copy_size];
+            }
+            else
+            {
+                current = current->parent;
+                parent_copy = parent_copy->parent;
+            }
 
-    	}
+        }
     }
 
     /****************
