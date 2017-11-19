@@ -55,6 +55,11 @@ namespace rcn {
 template<typename T>
 class GeneralTree
 {
+	/***************
+	 *			   *
+	 *  TREE NODE  *
+	 *			   *
+	 ***************/
     struct Node
     {
         T value;
@@ -64,6 +69,12 @@ class GeneralTree
         explicit Node(T val = T(), Node* par = nullptr) : value(val), parent(par) {}
     };
 
+
+    /********************
+     *					*
+     *  CONST ITERATOR  *
+     *					*
+     ********************/
     class CIterator
     {
         friend class GeneralTree;
@@ -150,6 +161,11 @@ class GeneralTree
         }
     };
 
+    /************************
+	 *						*
+     *  NON-CONST ITERATOR  *
+     *						*
+     ************************/
     class Iterator
     {
         friend class GeneralTree;
@@ -271,16 +287,34 @@ class GeneralTree
             }
         }
     }
-    void copy_node(T val, Node* other, Node* parent)
+    void copy_successors(Node* parent_copy, Node* other)
     {
-        auto* temp = new Node(val, parent);
-        parent->children.push_back(temp);
-        for (Node* n : other->children)
-        {
-            copy_node(n->value, n, temp);
-        }
+    	// Undefined Behavior if copy has
+    	// children or parent_copy is nullptr
+    	if (other == nullptr) { return; }
+    	auto* current = other;
+    	while (current != other->parent)
+    	{
+    		auto copy_size = parent_copy->children.size();
+    		if (parent_copy->children.size() < current->children.size())
+    		{
+    			parent_copy->children.push_back(new Node(current->children[copy_size]->value, parent_copy));
+    			++_size;
+    			current = current->children[copy_size];
+    			parent_copy = parent_copy->children[copy_size];
+    		}
+    		else
+    		{
+    			current = current->parent;
+    			parent_copy = parent_copy->parent;
+    		}
+
+    	}
     }
 
+    /****************
+     * TREE MEMBERS *
+     ****************/
     Node* _root;
     std::size_t _size;
 public:
@@ -310,10 +344,7 @@ public:
     {
         if(tree._root == nullptr) return;
         this->_root = new Node(tree._root->value, nullptr);
-        for(Node* n : tree._root->children)
-        {
-            copy_node(n->value, n, this->_root);
-        }
+        copy_successors(_root, tree._root);
     }
 
     GeneralTree(GeneralTree&& tree) noexcept : _root(tree._root), _size(tree._size)
@@ -333,10 +364,7 @@ public:
         if(tree._root == nullptr) return *this;
         this->_size = tree._size;
         this->_root = new Node(tree._root->value, nullptr);
-        for(Node* n : tree._root->children)
-        {
-            copy_node(n->value, n, this->_root);
-        }
+        copy_successors(_root, tree._root);
 
         return *this;
     }
@@ -529,7 +557,9 @@ public:
     }
 
     /**
-     * Method of getting number of children
+     * Method of getting the number of
+     * the children directly connected 
+     * to the parent node
      * If parent is an empty iterator
      * the return value is either 1
      * if the root exists or 0 if it does not
