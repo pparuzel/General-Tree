@@ -5,7 +5,7 @@
  *  GeneralTree data structure
  *
  *  @author  Pawel Paruzel
- *  @version 0.2.1
+ *  @version 0.2.2
  */
 
 #include <vector>
@@ -293,14 +293,16 @@ public:
     typedef std::size_t size_type;
 
     /**
-     * Default constructor creates tree without a root
+     * Default constructor creates an empty
+     * tree without the root assigned
      */
     GeneralTree() : _root(nullptr), _size(0) {}
 
     /**
-     * Constructor initilizing tree with a root value
+     * Constructor initilizing the tree
+     * with a root of some value
      *
-     * @param value assigned to root
+     * @param value value assigned to root
      */
     explicit GeneralTree(const T& value) : _root(new Node(value)), _size(1) {}
 
@@ -352,11 +354,11 @@ public:
 
     /**
      * Insertion method
-     * To insert value into the root
-     * one must pass value, empty iterator and index 0
-     * Inserting to root twice results in an Undefined Behavior
-     * If index position of the child is larger than
-     * amount of children, value is inserted as the last element
+     * To insert a value into the root, one must pass
+     * three parameters: a value, an empty iterator and index 0
+     * Inserting to the root twice results in an Undefined Behavior
+     * If index position of the child is larger than the amount
+     * of children, the value is inserted as the last element
      *
      * @param value value to insert
      * @param it_parent iterator to the parent
@@ -383,7 +385,7 @@ public:
     }
 
     /**
-     * Mutable iterator to root of the tree
+     * Mutable iterator to the root of the tree
      *
      * @return iterator to root
      */
@@ -393,7 +395,7 @@ public:
     }
 
     /**
-     * Immutable iterator to root of the tree
+     * Immutable iterator to the root of the tree
      *
      * @return const_iterator to root
      */
@@ -403,7 +405,7 @@ public:
     }
 
     /**
-     * Mutable iterator to first element in post-order
+     * Mutable iterator to the first element in post-order
      *
      * @return iterator to left-most element of the tree
      */
@@ -422,7 +424,7 @@ public:
     }
 
     /**
-     * Immutable iterator to first element in post-order
+     * Immutable iterator to the first element in post-order
      *
      * @return const_iterator to left-most element of the tree
      */
@@ -441,7 +443,7 @@ public:
     }
 
     /**
-     * Immutable iterator to first element in post-order
+     * Immutable iterator to the first element in post-order
      *
      * @return const_iterator to left-most element of the tree
      */
@@ -496,6 +498,8 @@ public:
      * Method of getting any child of parent iterator
      * If parent iterator is empty
      * then root node is returned
+     * Parent with no children results in Undefined Behavior
+     * Index out of bounds results in Undefined Behavior
      *
      * @param parent iterator over the child
      * @param index position of the child
@@ -527,8 +531,8 @@ public:
     /**
      * Method of getting number of children
      * If parent is an empty iterator
-     * the return value is 1 if root exists
-     * or 0 if it does not
+     * the return value is either 1
+     * if the root exists or 0 if it does not
      *
      * @param parent iterator to the node
      * @return integer amount of children of the parent iterator
@@ -587,7 +591,7 @@ public:
     }
 
     /**
-     * Returns size of the tree
+     * Returns the size of the tree
      *
      * @return number of nodes in the tree
      */
