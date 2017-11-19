@@ -268,9 +268,10 @@ class GeneralTree
             }
             else
             {
+                auto* temp_parent = current->parent;
                 delete current;
                 --_size;
-                current = current->parent;
+                current = temp_parent;
                 current->children.pop_back();
             }
         }
