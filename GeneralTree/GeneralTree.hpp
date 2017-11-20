@@ -109,6 +109,11 @@ class GeneralTree
             return ptr->value;
         }
 
+        CIterator parent() const
+        {
+            return CIterator(ptr->parent);
+        }
+
         CIterator& operator++()
         {
             std::vector<Node*>& vec = ptr->parent->children;
@@ -198,6 +203,11 @@ class GeneralTree
         T& operator*()
         {
             return ptr->value;
+        }
+
+        Iterator parent()
+        {
+            return Iterator(ptr->parent);
         }
 
         Iterator& operator++()
