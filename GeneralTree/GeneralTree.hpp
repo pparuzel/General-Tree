@@ -5,7 +5,7 @@
  *  GeneralTree data structure
  *
  *  @author  Pawel Paruzel
- *  @version 0.2.4
+ *  @version 0.3.0-alpha
  */
 
 #include <vector>
