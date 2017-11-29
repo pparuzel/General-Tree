@@ -3,7 +3,8 @@
 
 
 // General Tests
-TEST(BasicTests, EmptyTreeTests) {
+TEST(BasicTests, EmptyTreeTests)
+{
     rcn::GeneralTree<int> empty_tree{};
 
     ASSERT_EQ(empty_tree.root(), rcn::GeneralTree<int>::iterator{});
