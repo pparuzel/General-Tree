@@ -13,3 +13,13 @@ TEST(BasicTests, EmptyTreeTests)
     ASSERT_EQ(empty_tree.root(), empty_tree.end());
     ASSERT_NO_THROW(empty_tree.clear());
 }
+
+TEST(BasicTests, OneElemTreeTests)
+{
+    rcn::GeneralTree<int> tree{7};
+
+    EXPECT_NO_THROW(tree.clear());
+    EXPECT_EQ(tree.root(), tree.end());
+    EXPECT_NO_THROW(tree.insert(8, tree.end(), 0));
+    EXPECT_EQ(8, *tree.root());
+}
