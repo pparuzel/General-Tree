@@ -21,7 +21,7 @@
         typedef T           value_type;
         typedef Iterator    iterator;
         typedef CIterator   const_iterator;
-        typedef std::size_t size_type;
+        typedef size_type size_type;
 
         GeneralTree();
         GeneralTree(const T& );
@@ -30,7 +30,7 @@
         ~GeneralTree();
         GeneralTree& operator=(const GeneralTree& );
         GeneralTree& operator=(GeneralTree&& ) noexcept;
-        iterator insert(const T& , const_iterator , std::size_t );
+        iterator insert(const T& , const_iterator , size_type );
         const_iterator root() const;
         iterator root();
         const_iterator begin() const;
@@ -39,13 +39,13 @@
         const_iterator end() const;
         iterator end();
         const_iterator cend() const;
-        const_iterator getChild(const_iterator , std::size_t );
-        iterator getChild(const_iterator , std::size_t );
+        const_iterator getChild(const_iterator , size_type );
+        iterator getChild(const_iterator , size_type );
         int getNumberOfChildren(const_iterator );
         void erase(const_iterator );
         void clear();
         bool empty();
-        std::size_t size();
+        size_type size();
     };
  */
 
@@ -396,7 +396,7 @@ public:
      * @param index position of the new child
      * @return iterator pointing at the inserted node
      */
-    iterator insert(const T& value, const_iterator it_parent, std::size_t index)
+    iterator insert(const T& value, const_iterator it_parent, size_type index)
     {
         _size++;
         if (it_parent.ptr == nullptr && index == 0 && _root == nullptr)
@@ -536,7 +536,7 @@ public:
      * @param index position of the child
      * @return const_iterator to the child
      */
-    const_iterator getChild(const_iterator parent, std::size_t index) const
+    const_iterator getChild(const_iterator parent, size_type index) const
     {
         if (parent.ptr == nullptr) { return root(); }
         return const_iterator(parent.ptr->children[index]);
@@ -553,7 +553,7 @@ public:
      * @param index position of the child
      * @return iterator to the child
      */
-    iterator getChild(const_iterator parent, std::size_t index)
+    iterator getChild(const_iterator parent, size_type index)
     {
         if (parent.ptr == nullptr) { return root(); }
         return iterator(parent.ptr->children[index]);
@@ -628,7 +628,7 @@ public:
      *
      * @return number of nodes in the tree
      */
-    std::size_t size() const
+    size_type size() const
     {
         return _size;
     }
